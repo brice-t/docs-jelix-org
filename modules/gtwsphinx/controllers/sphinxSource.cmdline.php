@@ -45,7 +45,12 @@ class sphinxSourceCtrl extends jControllerCmdLine {
         $rep = $this->getResponse();
 
         $sphinxSrv = jClasses::getService('sphinxsearch~sphinx');
-        $rep->addContent( $sphinxSrv->xmlpipe2source( array( 'type' => 'gitiwiki', 'repo' => $paramRepo, 'bookindex' => $paramBookIndex ) ) );
+        $rep->addContent(
+            $sphinxSrv->xmlpipe2source( array(
+                'type' => 'gitiwiki',
+                'repo' => $paramRepo,
+                'bookindex' => $paramBookIndex ) )
+            );
         return $rep;
     }
 }

@@ -37,6 +37,16 @@
                     <li{if $repo===$currentRepoName} class="selected"{/if}><a href="{jurl 'gitiwiki~wiki:page', array('repository'=>$repo, 'page' => '/')}">{jlocale 'app~site.submenubar.title.' . str_replace('-', '_', $repo)}</a></li>
                 {/foreach}
                 <li><a href="http://jelix.org/reference/index.html.fr">Référence API</a></li>
+                {if $currentRepoName}
+                <li>
+                    <form method="get" id="dw__search" class="search" accept-charset="utf-8" action="{jurl 'gtwsphinx~results:page', array('repository'=>$currentRepoName)}">
+                        <div class="no">
+                            <input id="qsearch__in" accesskey="f" name="search" class="edit" title="Recherche" type="text">
+                            <input value="Rechercher" class="button" title="Rechercher" type="submit">
+                        </div>
+                    </form>
+                </li>
+                {/if}
             </ul>
         </div>
         <div id="article">

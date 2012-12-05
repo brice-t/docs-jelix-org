@@ -4,6 +4,8 @@
  * @author     Brice Tencé
  */
 
+require_once('sphinxapi.php');
+
 class sphinx {
 
     private $jCacheProfile = 'sphinxsearch';
@@ -94,5 +96,47 @@ class sphinx {
         $xmlWriterInst->endElement();
     }
 
+
+
+
+    public function resultsInfos( $searchString, $index ) {
+ 
+        $sp = new SphinxClient();
+        $sp->SetServer('localhost', 9312);
+
+        // SPH_MATCH_ALL will match all words in the search term
+        $sp->SetMatchMode(SPH_MATCH_ALL);
+
+        $sp->SetArrayResult(true);
+
+        $results = $sp->Query( $searchString, $index );
+        if( !$results ) {
+            $error = $sp->GetLastError();
+            if( $error ) {
+                trigger_error( "Sphinx search error : $error", E_USER_WARNING ); 
+            }
+            $warning = $sp->GetLastWarning();
+            if( $warning ) {
+                trigger_error( "Sphinx search warning : $warning", E_USER_WARNING ); 
+            }
+            return array();
+        }
+
+        if( ! array_key_exists( 'matches', $results ) ) {
+            return array();
+        }
+
+        $resInfos = array();
+        foreach( $results['matches'] as $res ) {
+            jLog::log( $res['id'] );
+            $infos = jCache::get( $res['id'], $this->jCacheProfile );
+            jLog::dump( $infos );
+            if( $infos ) {
+                $resInfos[] = $infos;
+            }
+        }
+
+        return $resInfos;
+    }
 }
 

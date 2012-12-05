@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <urls xmlns="http://jelix.org/ns/urls/1.0">
     <entrypoint type="classic" name="fr" default="true">
+        <url pathinfo="/recherche/" module="gtwsphinx" include="urls.xml">
+        </url>
         <url pathinfo="/" module="gitiwiki" include="urls.xml">
         </url>
     </entrypoint>
