@@ -1,7 +1,8 @@
 <?php
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Laurent Jouanneau
+ * @author     Brice Tencé
+ * @contributor Laurent Jouanneau
  */
 
 class gtwSphinxSource {
@@ -19,9 +20,6 @@ class gtwSphinxSource {
     
     protected $bookIndex;
 
-    /**
-     * @var gtwRepo
-     */
     protected $repository;
 
     public function __construct($repoId, $bookId) {
@@ -79,7 +77,7 @@ class gtwSphinxSource {
                 $html = $file->getHtmlContent($this->basePath);
                 $path = $file->getPath() . '/' . $file->getName();
                 $c[] = array( 'content' => array( 'title' => $title, 'page' => $html ),
-                              'infos' => array( 'repo' => $this->repo->getName(), 'path' => $path ) );
+                              'infos' => array( 'repo' => $this->repo->getName(), 'path' => $path, 'title' => $title ) );
             }
         } else {
             return array();

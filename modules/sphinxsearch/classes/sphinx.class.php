@@ -9,6 +9,7 @@ require_once('sphinxapi.php');
 class sphinx {
 
     private $jCacheProfile = 'sphinxsearch';
+    private $maxQueryTime = 5000; //ms
 
     public function resetSources() {
         jCache::delete( 'documentId' );
@@ -99,7 +100,7 @@ class sphinx {
 
 
 
-    public function resultsInfos( $searchString, $index ) {
+    public function resultsInfos( $searchString, $index, $offset=0, $limit=100, &$stats=null ) {
  
         $sp = new SphinxClient();
         $sp->SetServer('localhost', 9312);
@@ -109,6 +110,8 @@ class sphinx {
 
         $sp->SetArrayResult(true);
 
+        $sp->SetLimits( intval($offset), intval($limit) );
+        $sp->SetMaxQueryTime( $this->maxQueryTime );
         $results = $sp->Query( $searchString, $index );
         if( !$results ) {
             $error = $sp->GetLastError();
@@ -128,15 +131,31 @@ class sphinx {
 
         $resInfos = array();
         foreach( $results['matches'] as $res ) {
-            jLog::log( $res['id'] );
             $infos = jCache::get( $res['id'], $this->jCacheProfile );
-            jLog::dump( $infos );
             if( $infos ) {
                 $resInfos[] = $infos;
             }
         }
+        $stats = array( 'total' => $results['total'] );
 
         return $resInfos;
     }
+
+
+    public function getHighlighted( $docs, $index, $words, $limitByDoc=100,
+        $beforeMatch='<span class="searchMatch">', $afterMatch='</span>', $sep='&hellip;' ) {
+
+        $sp = new SphinxClient();
+        $sp->SetServer('localhost', 9312);
+        $options = array(
+            'before_match'          => $beforeMatch,
+            'after_match'           => $afterMatch,
+            'chunk_separator'       => $sep,
+            'limit'                 => $limitByDoc,
+        );
+
+        return $sp->BuildExcerpts( $docs, $index, $words, $options );
+    }
+
 }
 
