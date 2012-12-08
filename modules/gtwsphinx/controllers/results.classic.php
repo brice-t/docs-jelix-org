@@ -28,11 +28,12 @@ class resultsCtrl extends jController {
 
         $rep = $this->getResponse('html');
 
-        $sphinxIndex = 'docs-jelix-1-4-fr'; //TODO : index name in profiles
-
         jClasses::inc('gitiwiki~gtwRepo');
         $repo = new gtwRepo($repoName);
+        $repoConfig = $repo->config();
         $basePath = jUrl::get('gitiwiki~wiki:page@classic', array('repository'=>$repo->getName(), 'page'=>''));
+
+        $sphinxIndex = $repoConfig['sphinxIndex'];
 
         $sphinxSrv = jClasses::getService( 'sphinxsearch~sphinx' );
         $resultsInfos = $sphinxSrv->resultsInfos( $searchString, $sphinxIndex, ($page-1)*$limit, $limit, $searchStats );
@@ -66,7 +67,7 @@ class resultsCtrl extends jController {
         }
 
         $tpl = new jTpl();
-        $tpl->assign( array(
+        $content = jZone::get( 'sphinxsearch~results', array(
             'searchSel' => 'gtwsphinx~results:page',
             'searchParams' => array( 'repository'=>$repoName, 'search'=>$searchString, 'limit'=>10 ),
             'string' => $searchString,
@@ -74,7 +75,7 @@ class resultsCtrl extends jController {
             'page' => $page,
             'limit' => $limit,
             'total' => $searchStats['total'] ) );
-        $rep->body->assign('MAIN', $tpl->fetch('sphinxsearch~results'));
+        $rep->body->assign('MAIN', $content);
         $rep->body->assign('currentRepoName', $repoName);
         return $rep;
     }

@@ -41,8 +41,8 @@
                 <li>
                     <form method="get" id="dw__search" class="search" accept-charset="utf-8" action="{jurl 'gtwsphinx~results:page', array('repository'=>$currentRepoName)}">
                         <div class="no">
-                            <input id="qsearch__in" accesskey="f" name="search" class="edit" title="Recherche" type="text">
-                            <input value="Rechercher" class="button" title="Rechercher" type="submit">
+                            <input id="qsearch__in" accesskey="f" name="search" class="edit" title="Recherche" type="text"></input>
+                            <input value="Rechercher" class="button" title="Rechercher" type="submit"></input>
                         </div>
                     </form>
                 </li>
