@@ -151,7 +151,7 @@ ttl = 0
 ; Parameters for file driver :
 
 ; directory where to put the cache files (optional default jApp::tempPath('cache/'))
-cache_dir = "/home/brice/dev/jelix-perso/repos/docs-jelix-org/temp/common/cache"
+cache_dir = "/path/to/app/temp/common/cache"
 ; enable / disable locking file
 file_locking = 1
 ; directory level. Set the directory structure level. 0 means "no directory structure", 1 means "one level of directory", 2 means "two levels"...
