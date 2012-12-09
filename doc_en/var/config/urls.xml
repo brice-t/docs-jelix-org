@@ -5,6 +5,8 @@
         </url>
     </entrypoint>
     <entrypoint type="classic" name="en">
+        <url pathinfo="/search/" module="gtwsphinx" include="urls.xml">
+        </url>
         <url pathinfo="/" module="gitiwiki" include="urls.xml">
         </url>
     </entrypoint>

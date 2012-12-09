@@ -40,6 +40,8 @@ junittests.access=0
 jWSDL.access=0
 
 app.access=2
+sphinxsearch.access=2
+gtwsphinx.access=2
 
 [coordplugins]
 ;name = file_ini_name or 1

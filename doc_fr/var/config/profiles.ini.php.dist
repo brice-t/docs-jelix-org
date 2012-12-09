@@ -134,6 +134,39 @@ cache_file_umask =
 
 
 
+[jcache:sphinxsearch]
+;    disable or enable cache for this profile
+enabled = 1
+;    driver type (file, db, memcached)
+driver = file
+;    TTL used (0 means no expire)
+ttl = 0
+
+; Automatic cleaning configuration (not necessary with memcached)
+;   0 means disabled
+;   1 means systematic cache cleaning of expired data (at each set or add call)
+;   greater values mean less frequent cleaning
+;automatic_cleaning_factor = 0
+
+; Parameters for file driver :
+
+; directory where to put the cache files (optional default jApp::tempPath('cache/'))
+cache_dir = "/home/brice/dev/jelix-perso/repos/docs-jelix-org/temp/common/cache"
+; enable / disable locking file
+file_locking = 1
+; directory level. Set the directory structure level. 0 means "no directory structure", 1 means "one level of directory", 2 means "two levels"...
+directory_level = 0
+; umask for directory structure (default '0700')
+directory_umask =
+; prefix for cache files (default 'jelix_cache')
+file_name_prefix = ""
+; umask for cache files (default '0600')
+cache_file_umask =
+
+
+
+
+
 [gtwrepo]
 default=manuel-1.0
 
@@ -144,6 +177,7 @@ branch=jelix-1.0
 title="Manuel Jelix 1.0"
 gitSourceEditURL="https://github.com/jelix/jelix-manuel-fr/edit/%branch%/%file%"
 gitSourceViewURL="https://github.com/jelix/jelix-manuel-fr/blob/%branch%/%file%"
+sphinxIndex=docs-jelix-1-0-fr
 
 [gtwrepo:manuel-1.1]
 path="app:../repositories/fr/jelix-manuel-fr/.git"
@@ -152,6 +186,7 @@ branch=jelix-1.1
 title="Manuel Jelix 1.1"
 gitSourceEditURL="https://github.com/jelix/jelix-manuel-fr/edit/%branch%/%file%"
 gitSourceViewURL="https://github.com/jelix/jelix-manuel-fr/blob/%branch%/%file%"
+sphinxIndex=docs-jelix-1-1-fr
 
 [gtwrepo:manuel-1.2]
 path="app:../repositories/fr/jelix-manuel-fr/.git"
@@ -160,6 +195,7 @@ branch=jelix-1.2
 title="Manuel Jelix 1.2"
 gitSourceEditURL="https://github.com/jelix/jelix-manuel-fr/edit/%branch%/%file%"
 gitSourceViewURL="https://github.com/jelix/jelix-manuel-fr/blob/%branch%/%file%"
+sphinxIndex=docs-jelix-1-2-fr
 
 [gtwrepo:manuel-1.3]
 path="app:../repositories/fr/jelix-manuel-fr/.git"
@@ -168,6 +204,7 @@ branch=jelix-1.3
 title="Manuel Jelix 1.3"
 gitSourceEditURL="https://github.com/jelix/jelix-manuel-fr/edit/%branch%/%file%"
 gitSourceViewURL="https://github.com/jelix/jelix-manuel-fr/blob/%branch%/%file%"
+sphinxIndex=docs-jelix-1-3-fr
 
 [gtwrepo:manuel-1.4]
 path="app:../repositories/fr/jelix-manuel-fr/.git"
@@ -176,6 +213,7 @@ branch=jelix-1.4
 title="Manuel Jelix 1.4"
 gitSourceEditURL="https://github.com/jelix/jelix-manuel-fr/edit/%branch%/%file%"
 gitSourceViewURL="https://github.com/jelix/jelix-manuel-fr/blob/%branch%/%file%"
+sphinxIndex=docs-jelix-1-4-fr
 
 [gtwrepo:manuel-1.5]
 path="app:../repositories/fr/jelix-manuel-fr/.git"
@@ -184,4 +222,5 @@ branch=master
 title="Manuel Jelix 1.5"
 gitSourceEditURL="https://github.com/jelix/jelix-manuel-fr/edit/%branch%/%file%"
 gitSourceViewURL="https://github.com/jelix/jelix-manuel-fr/blob/%branch%/%file%"
+sphinxIndex=docs-jelix-1-5-fr
 

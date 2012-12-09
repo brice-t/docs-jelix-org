@@ -10,7 +10,7 @@
     margin: 0 10px;
 }
 
-#article h2.searchResultsHeader {
+h2.searchResultsHeader {
     margin: 0;
 }
 
@@ -18,7 +18,7 @@
     padding: 0 20px 0 40px;
 }
 
-#article a.searchResultsTitle {
+a.searchResultsTitle {
     font-size: 110%;
     color: #1122CC;
 }

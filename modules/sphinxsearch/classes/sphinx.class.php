@@ -143,18 +143,34 @@ class sphinx {
 
 
     public function getHighlighted( $docs, $index, $words, $limitByDoc=100,
-        $beforeMatch='<span class="searchMatch">', $afterMatch='</span>', $sep='&hellip;' ) {
+                                    $beforeMatch='<span class="searchMatch">',
+                                    $afterMatch='</span>', $sep='<span class="searchMatchSep">&hellip;</span>' ) {
 
         $sp = new SphinxClient();
         $sp->SetServer('localhost', 9312);
+        $fakeBeforeMatch = '@@fakeBeforeMatch@@';
+        $fakeAfterMatch = '@@fakeAfterMatch@@';
+        $fakeSep = '@@fakeMatchSep@@';
         $options = array(
-            'before_match'          => $beforeMatch,
-            'after_match'           => $afterMatch,
-            'chunk_separator'       => $sep,
+            'before_match'          => $fakeBeforeMatch,
+            'after_match'           => $fakeAfterMatch,
+            'chunk_separator'       => $fakeSep,
             'limit'                 => $limitByDoc,
         );
 
-        return $sp->BuildExcerpts( $docs, $index, $words, $options );
+        $highlighted = $sp->BuildExcerpts( $docs, $index, $words, $options );
+        $extracts = array();
+        if( $highlighted ) {
+            //BuildExcerpts will decode HTML entities. Have to encode them again ...
+            foreach( $highlighted as $doc ) {
+                $doc = htmlspecialchars( $doc );
+                $doc = str_replace( htmlspecialchars($fakeSep), $sep, $doc );
+                $doc = str_replace( htmlspecialchars($fakeBeforeMatch), $beforeMatch, $doc );
+                $doc = str_replace( htmlspecialchars($fakeAfterMatch), $afterMatch, $doc );
+                $extracts[] = $doc;
+            }
+        }
+        return $extracts;
     }
 
 }

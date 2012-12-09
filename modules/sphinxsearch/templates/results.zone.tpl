@@ -34,7 +34,7 @@
                 {/if}
             {/for}
 
-            {if $page < $total}
+            {if $page < $maxPage}
                 <a class="searchResultsNavNext" href="{jurl $searchSel, array_merge($searchParams, array('page'=>$page+1))}">{@sphinxsearch~search.results.navNext@}</a>
             {/if}
         </div>
